@@ -2,27 +2,14 @@ package auth
 
 import (
 	"bufio"
-	"crypto/md5"
-	"encoding/hex"
 	"fmt"
 	"os"
-	"strings"
 )
 
-func getInput(prompt string, r *bufio.Reader) (string, error) {
-	fmt.Print(prompt)
-	text, err := r.ReadString('\n')
-	return strings.TrimSpace(text), err
-}
+func register() bool {
+	fmt.Println("----------------------------------------------------")
 
-func hashPassword(password string) string {
-	hash := md5.Sum([]byte(password))
-	return hex.EncodeToString(hash[:])
-}
-
-func register() {
 	reader := bufio.NewReader(os.Stdin)
-
 	//clear buffer
 	reader.ReadString('\n')
 
@@ -30,10 +17,10 @@ func register() {
 	name, _ := getInput("Username: ", reader)
 	//fmt.Println("Username: " + name)
 	password, _ := getInput("Password: ", reader)
-	passwordH := hashPassword(password)
+	password = hashPassword(password)
 	//fmt.Println("Password: " + passwordH)
 
-	user := newUser(name, passwordH)
+	user := newUser(name, password)
 	savedU := user.Username + ":" + user.Password
 
 	data := []byte(savedU)
@@ -45,4 +32,5 @@ func register() {
 	}
 
 	fmt.Println("You have successfully registered!")
+	return true
 }

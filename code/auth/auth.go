@@ -1,12 +1,27 @@
 package auth
 
 import (
+	"bufio"
+	"crypto/md5"
+	"encoding/hex"
 	"fmt"
-	"os"
+	"strings"
 )
 
-func AuthenticationMain() {
+func getInput(prompt string, r *bufio.Reader) (string, error) {
+	fmt.Print(prompt)
+	text, err := r.ReadString('\n')
+	return strings.TrimSpace(text), err
+}
+
+func hashPassword(password string) string {
+	hash := md5.Sum([]byte(password))
+	return hex.EncodeToString(hash[:])
+}
+
+func AuthenticationMain() bool {
 	var choice int
+	var logedIn bool
 
 	fmt.Println("Hello, welcome to Smart Repair!")
 
@@ -22,18 +37,24 @@ func AuthenticationMain() {
 		} else {
 			switch choice {
 			case 1:
-				fmt.Println("You have selected to login.")
+				logedIn = login()
+				if logedIn {
+					return true
+				}
 			case 2:
-				register()
+				logedIn = register()
+				if logedIn {
+					return true
+				}
 			case 3:
 				fmt.Println("You have selected to view the help menu.")
 			case 4:
 				fmt.Println("Thank you for using Smart Repair!")
-				os.Exit(0)
 			default:
 				fmt.Println("Invalid choice. Please try again.")
 			}
 		}
 
 	}
+	return false
 }
