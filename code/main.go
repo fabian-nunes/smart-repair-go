@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	auth "smart-repair-go/auth"
+	clients "smart-repair-go/clients"
 	dash "smart-repair-go/dash"
 )
 
@@ -35,7 +36,7 @@ func main() {
 			option := dash.DashMain()
 			switch option {
 			case 1:
-				fmt.Println("You have selected to view the clients menu.")
+				clients.ClientsMain()
 			case 2:
 				fmt.Println("You have selected to view the repairs menu.")
 			case 4:

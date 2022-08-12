@@ -26,8 +26,13 @@ func login() bool {
 
 	f, err := os.ReadFile("files/user.txt")
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		if os.IsNotExist(err) {
+			fmt.Println("User file does not exist. Please register first.")
+			return false
+		} else {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	}
 
 	savedU := string(f)
