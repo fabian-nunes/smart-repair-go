@@ -1,4 +1,4 @@
-package clients
+package orders
 
 import (
 	"fmt"
@@ -7,10 +7,11 @@ import (
 )
 
 func findFile() {
+	fmt.Println("Search for a client file...")
 	f, err := os.ReadFile("files/clients.txt")
 	if err != nil {
 		if os.IsNotExist(err) {
-			fmt.Println("Client file does not exist. Register clients and save them to the file.")
+			fmt.Println("Client file does not exist. Register orders and save them to the file.")
 		} else {
 			fmt.Println(err)
 			os.Exit(1)

@@ -1,4 +1,4 @@
-package clients
+package orders
 
 type Client struct {
 	name  string

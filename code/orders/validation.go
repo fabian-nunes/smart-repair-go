@@ -1,4 +1,4 @@
-package clients
+package orders
 
 import (
 	"net/mail"

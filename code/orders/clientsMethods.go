@@ -1,20 +1,13 @@
-package clients
+package orders
 
 import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
 )
 
-func getInput(prompt string, r *bufio.Reader) (string, error) {
-	fmt.Print(prompt)
-	text, err := r.ReadString('\n')
-	return strings.TrimSpace(text), err
-}
-
 func printAllClients() {
-	fmt.Println("Listing all clients...")
+	fmt.Println("Listing all orders...")
 	fmt.Println("----------------------------------------------------")
 	for _, client := range clients {
 		fmt.Println("Name: ", client.name, "\nEmail: ", client.email, "\nPhone: ", client.phone)
@@ -106,6 +99,13 @@ func findIndex(email string) int {
 }
 
 func editClient() bool {
+
+	if len(clients) == 0 {
+		fmt.Println("----------------------------------------------------")
+		fmt.Println("There are no clients to edit. Please add a client first.")
+		return false
+	}
+
 	fmt.Println("----------------------------------------------------")
 	reader := bufio.NewReader(os.Stdin)
 	//clear buffer
@@ -120,16 +120,16 @@ func editClient() bool {
 
 	index := findIndex(email)
 
-	fmt.Println("----------------------------------------------------")
-	fmt.Println("What do you want to edit?")
-	fmt.Println("1. Name")
-	fmt.Println("2. Email")
-	fmt.Println("3. Phone")
-	fmt.Println("4. Back")
-	fmt.Println("----------------------------------------------------")
 	var choice int
 
 	for choice != 4 {
+		fmt.Println("----------------------------------------------------")
+		fmt.Println("What do you want to edit?")
+		fmt.Println("1. Name")
+		fmt.Println("2. Email")
+		fmt.Println("3. Phone")
+		fmt.Println("4. Back")
+		fmt.Println("----------------------------------------------------")
 		_, err := fmt.Scan(&choice)
 		if err != nil {
 			fmt.Println("Invalid choice. Please try again.")

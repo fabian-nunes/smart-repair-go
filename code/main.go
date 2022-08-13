@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 	auth "smart-repair-go/auth"
-	clients "smart-repair-go/clients"
 	dash "smart-repair-go/dash"
+	orders "smart-repair-go/orders"
 )
 
 func createDir() {
@@ -36,9 +36,9 @@ func main() {
 			option := dash.DashMain()
 			switch option {
 			case 1:
-				clients.ClientsMain()
+				orders.ClientsMain()
 			case 2:
-				fmt.Println("You have selected to view the repairs menu.")
+				orders.RepairsMain()
 			case 4:
 				fmt.Println("Thank you for using Smart Repair!")
 				logedIn = false
