@@ -88,7 +88,12 @@ func addRepair() bool {
 
 	fmt.Println("Enter the cost of the repair:")
 	var cost float64
-	fmt.Scan(&cost)
+	_, err := fmt.Scan(&cost)
+	if err != nil {
+		fmt.Println("----------------------------------------------------")
+		fmt.Println("Invalid input.")
+		return false
+	}
 
 	reader.ReadString('\n')
 	description, _ := getInput("Description of the repair: ", reader)
@@ -102,6 +107,8 @@ func addRepair() bool {
 	}
 
 	repairs = append(repairs, newRepair(code, name, cost, description, client))
+
+	changeRepairClient(client, 0)
 
 	fmt.Println("----------------------------------------------------")
 	fmt.Println("Repair added successfully!")
@@ -178,7 +185,11 @@ func editRepair() bool {
 			case 2:
 				fmt.Println("Enter the cost of the repair:")
 				var cost float64
-				fmt.Scan(&cost)
+				_, err := fmt.Scan(&cost)
+				if err != nil {
+					fmt.Println("Invalid cost.")
+					return false
+				}
 				repairs[index].cost = cost
 			case 3:
 				description, _ := getInput("Description of the repair: ", reader)
@@ -257,8 +268,20 @@ func deleteRepair() {
 		fmt.Println("Repair cannot be deleted. Please enter a different code: ")
 		return
 	}
+
+	changeRepairClient(repairs[index].client, 1)
+
 	repairs = append(repairs[:index], repairs[index+1:]...)
 	fmt.Println("----------------------------------------------------")
 	fmt.Println("Repair deleted successfully!")
 	fmt.Println("----------------------------------------------------")
+
+}
+
+func removeRepairClient(email string) {
+	for _, repair := range repairs {
+		if repair.client == email {
+			repairs[findIndexRepair(repair.code)].client = "User Deleted"
+		}
+	}
 }

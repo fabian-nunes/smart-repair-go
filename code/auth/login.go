@@ -23,11 +23,13 @@ func login() bool {
 
 	user := newUser(name, password)
 	//fmt.Println(user)
-
+	fmt.Println("----------------------------------------------------")
 	f, err := os.ReadFile("files/user.txt")
 	if err != nil {
 		if os.IsNotExist(err) {
+			fmt.Println("----------------------------------------------------")
 			fmt.Println("User file does not exist. Please register first.")
+			fmt.Println("----------------------------------------------------")
 			return false
 		} else {
 			fmt.Println(err)
@@ -39,10 +41,14 @@ func login() bool {
 	savedUData := strings.Split(savedU, ":")
 
 	if user.Username == savedUData[0] && user.Password == savedUData[1] {
+		fmt.Println("----------------------------------------------------")
 		fmt.Println("You have successfully logged in!")
+		fmt.Println("----------------------------------------------------")
 		return true
 	} else {
+		fmt.Println("----------------------------------------------------")
 		fmt.Println("Invalid username or password. Please try again.")
+		fmt.Println("----------------------------------------------------")
 		return false
 	}
 }

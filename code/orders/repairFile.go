@@ -17,13 +17,29 @@ func findFileR() {
 			os.Exit(1)
 		}
 	} else {
-		fmt.Println("----------------------------------------------------")
-		fmt.Println("Order file found.")
-		fmt.Println("----------------------------------------------------")
-		fmt.Println("Loading orders...")
-		fmt.Println("----------------------------------------------------")
-		repairs = loadRepairs(f)
+		if getFileSizeR() == 0 {
+			fmt.Println("----------------------------------------------------")
+			fmt.Println("Order file empty. Register orders and save them to the file.")
+			fmt.Println("Ignoring file...")
+			fmt.Println("----------------------------------------------------")
+		} else {
+			fmt.Println("----------------------------------------------------")
+			fmt.Println("Order file found.")
+			fmt.Println("----------------------------------------------------")
+			fmt.Println("Loading orders...")
+			fmt.Println("----------------------------------------------------")
+			repairs = loadRepairs(f)
+		}
 	}
+}
+
+func getFileSizeR() int64 {
+	fi, err := os.Stat("files/orders.txt")
+	if err != nil {
+		return 0
+	}
+	// get the size
+	return fi.Size()
 }
 
 func loadRepairs(f []byte) []Repair {
@@ -44,7 +60,7 @@ func loadRepairs(f []byte) []Repair {
 
 func saveFileR() {
 	fmt.Println("----------------------------------------------------")
-	fmt.Println("Saving file...")
+	fmt.Println("Saving Repair file...")
 	fmt.Println("----------------------------------------------------")
 	file, err := os.Create("files/orders.txt")
 	if err != nil {

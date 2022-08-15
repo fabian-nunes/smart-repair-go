@@ -3,6 +3,7 @@ package orders
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -17,13 +18,34 @@ func findFile() {
 			os.Exit(1)
 		}
 	} else {
-		fmt.Println("----------------------------------------------------")
-		fmt.Println("Client file found.")
-		fmt.Println("----------------------------------------------------")
-		fmt.Println("Loading clients...")
-		fmt.Println("----------------------------------------------------")
-		clients = loadClients(f)
+		if getSizeFile() == 0 {
+			fmt.Println("Client file is empty. Register orders and save them to the file.")
+		} else {
+			fmt.Println("----------------------------------------------------")
+			fmt.Println("Client file found.")
+			fmt.Println("----------------------------------------------------")
+			fmt.Println("Loading clients...")
+			fmt.Println("----------------------------------------------------")
+			clients = loadClients(f)
+		}
 	}
+}
+
+func getSizeFile() int64 {
+	file, err := os.Open("files/clients.txt")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	defer file.Close()
+
+	fileInfo, err := file.Stat()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	return fileInfo.Size()
 }
 
 func loadClients(f []byte) []Client {
@@ -31,7 +53,8 @@ func loadClients(f []byte) []Client {
 	for _, line := range strings.Split(string(f), "\n") {
 		if line != "" {
 			data := strings.Split(line, ";")
-			clients = append(clients, Client{data[0], data[1], data[2]})
+			repairs, _ := strconv.Atoi(data[3])
+			clients = append(clients, Client{data[0], data[1], data[2], repairs})
 		}
 	}
 	return clients
@@ -39,7 +62,7 @@ func loadClients(f []byte) []Client {
 
 func saveFile() {
 	fmt.Println("----------------------------------------------------")
-	fmt.Println("Saving file...")
+	fmt.Println("Saving Client file...")
 	fmt.Println("----------------------------------------------------")
 	file, err := os.Create("files/clients.txt")
 	if err != nil {
@@ -48,7 +71,7 @@ func saveFile() {
 	defer file.Close()
 
 	for _, client := range clients {
-		file.WriteString(client.name + ";" + client.email + ";" + client.phone + "\n")
+		file.WriteString(client.name + ";" + client.email + ";" + client.phone + ";" + strconv.Itoa(client.repairs) + "\n")
 	}
 
 	fmt.Println("----------------------------------------------------")

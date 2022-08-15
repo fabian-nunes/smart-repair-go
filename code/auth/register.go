@@ -32,5 +32,6 @@ func register() bool {
 	}
 
 	fmt.Println("You have successfully registered!")
+	fmt.Println("----------------------------------------------------")
 	return true
 }

@@ -30,10 +30,13 @@ func AuthenticationMain() bool {
 		fmt.Println("Please select an option below: \n1. Login \n2. Register" +
 			"\n3. Help" + "\n4. Exit")
 		fmt.Println("Please enter your choice: ")
+		fmt.Println("----------------------------------------------------")
 
 		_, err := fmt.Scan(&choice)
 		if err != nil {
+			fmt.Println("----------------------------------------------------")
 			fmt.Println("Invalid choice. Please try again.")
+			fmt.Println("----------------------------------------------------")
 		} else {
 			switch choice {
 			case 1:
@@ -47,11 +50,18 @@ func AuthenticationMain() bool {
 					return true
 				}
 			case 3:
-				fmt.Println("You have selected to view the help menu.")
+				fmt.Println("----------------------------------------------------")
+				fmt.Println("To enter the system, you must login first, if you do not have a account register first." +
+					"To choose different options, use the number next to the option you want to choose.")
+				fmt.Println("----------------------------------------------------")
 			case 4:
+				fmt.Println("----------------------------------------------------")
 				fmt.Println("Thank you for using Smart Repair!")
+				fmt.Println("----------------------------------------------------")
 			default:
+				fmt.Println("----------------------------------------------------")
 				fmt.Println("Invalid choice. Please try again.")
+				fmt.Println("----------------------------------------------------")
 			}
 		}
 

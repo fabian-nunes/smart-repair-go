@@ -24,10 +24,12 @@ func ClientsMain() {
 
 	findFile()
 
+	findFileR()
+
 	for choice != 8 {
 		fmt.Println("----------------------------------------------------")
 		fmt.Println("Please select an option below: \n1. List all orders \n2. Search for a client \n3. Add a Client \n4. Edit a client \n5. Delete a client " +
-			"\n6. Save orders to file \n7. Help \n8. Exit")
+			"\n6. Save clients to file \n7. Help \n8. Exit")
 		fmt.Println("Please enter your choice: ")
 
 		_, err := fmt.Scan(&choice)
@@ -47,8 +49,11 @@ func ClientsMain() {
 				deleteClient()
 			case 6:
 				saveFile()
+				saveFileR()
 			case 7:
-				fmt.Println("You have selected to view the help menu.")
+				fmt.Println("----------------------------------------------------")
+				fmt.Println("Here you can view, add, edit, delete and save clients.")
+				fmt.Println("----------------------------------------------------")
 			case 8:
 				fmt.Println("----------------------------------------------------")
 				fmt.Println("Returning to the dashboard")
@@ -96,8 +101,11 @@ func RepairsMain() {
 				deleteRepair()
 			case 7:
 				saveFileR()
+				saveFile()
 			case 8:
-				fmt.Println("You have selected to view the help menu.")
+				fmt.Println("----------------------------------------------------")
+				fmt.Println("Here you can view, add, edit, change status and delete repairs.")
+				fmt.Println("----------------------------------------------------")
 			case 9:
 				fmt.Println("----------------------------------------------------")
 				fmt.Println("Returning to the dashboard")

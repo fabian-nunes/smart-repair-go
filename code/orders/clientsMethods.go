@@ -10,7 +10,7 @@ func printAllClients() {
 	fmt.Println("Listing all orders...")
 	fmt.Println("----------------------------------------------------")
 	for _, client := range clients {
-		fmt.Println("Name: ", client.name, "\nEmail: ", client.email, "\nPhone: ", client.phone)
+		fmt.Println("Name: ", client.name, "\nEmail: ", client.email, "\nPhone: ", client.phone, "\nRepairs: ", client.repairs)
 		fmt.Println("----------------------------------------------------")
 	}
 }
@@ -27,7 +27,7 @@ func printSingleClient() {
 		for _, client := range clients {
 			if client.email == email {
 				fmt.Println("----------------------------------------------------")
-				fmt.Println("Name: ", client.name, "\nEmail: ", client.email, "\nPhone: ", client.phone)
+				fmt.Println("Name: ", client.name, "\nEmail: ", client.email, "\nPhone: ", client.phone, "\nRepairs: ", client.repairs)
 				fmt.Println("----------------------------------------------------")
 			}
 		}
@@ -68,7 +68,7 @@ func addClient() {
 		phone, _ = getInput("Phone of the client: ", reader)
 	}
 
-	clients = append(clients, Client{name, email, phone})
+	clients = append(clients, newClient(name, email, phone))
 	fmt.Println("----------------------------------------------------")
 	fmt.Println("Client added successfully!")
 	fmt.Println("----------------------------------------------------")
@@ -225,5 +225,16 @@ func deleteClient() bool {
 	fmt.Println("----------------------------------------------------")
 	fmt.Println("Client deleted successfully!")
 	fmt.Println("----------------------------------------------------")
+
+	removeRepairClient(email)
 	return true
+}
+
+func changeRepairClient(email string, action int) {
+	index := findIndex(email)
+	if action == 0 {
+		clients[index].repairs += 1
+	} else {
+		clients[index].repairs -= 1
+	}
 }

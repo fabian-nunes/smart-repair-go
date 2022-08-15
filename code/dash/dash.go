@@ -21,7 +21,9 @@ func DashMain() int {
 			if choice == 1 || choice == 2 || choice == 4 {
 				return choice
 			} else if choice == 3 {
-				fmt.Println("You have selected to view the help menu.")
+				fmt.Println("----------------------------------------------------")
+				fmt.Println("This is the Smart Repair Dashboard. It is a" + " \n" + "web application that allows you to manage your" + " \n" + "clients and their repairs. You can add, edit, and" + " \n" + "delete clients and repairs. You can also view the" + " \n" + "status of your repairs. You can also logout at any" + " \n" + "time.")
+				fmt.Println("----------------------------------------------------")
 			} else {
 				fmt.Println("Invalid choice. Please try again.")
 			}
