@@ -2,27 +2,15 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	auth "smart-repair-go/auth"
 	dash "smart-repair-go/dash"
+	misc "smart-repair-go/misc"
 	orders "smart-repair-go/orders"
 )
 
-func createDir() {
-	_, err := os.Stat("files")
-
-	if os.IsNotExist(err) {
-		errDir := os.MkdirAll("files", 0755)
-		if errDir != nil {
-			log.Fatal(err)
-		}
-
-	}
-}
-
 func main() {
-	createDir()
+	misc.CreateDir()
 	var active bool = true
 
 	for active {
